@@ -21,20 +21,20 @@ public class Member {
     @Column(name = "SEQ")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
-    @Column(unique = true)
+
     @NotNull
-    private String id;
+    private String userId;
 
     private String name;
 
-
-    @Column(unique = true, nullable = false)
     private String oauth2Id;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     private String email;
 
     private String password;
+
+    private String profileImage;
 
     @Column
     @Enumerated(value = EnumType.STRING)
@@ -46,10 +46,11 @@ public class Member {
 
 
     @Builder
-    Member(String id, String password,String email,  String name, Role role
-            ,Provider provider ){
-        this.id = id;
+    Member(String userId, String password,String email,  String name, Role role
+            ,Provider provider, String profileImage){
+        this.userId = userId;
         this.password = password;
+        this.profileImage = profileImage;
         this.name = name;
         this.role = role;
         this.email = email;
