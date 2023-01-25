@@ -25,7 +25,6 @@ public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest)
             throws OAuth2AuthenticationException {
-        
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
         OAuth2User oauth2User = delegate.loadUser(userRequest);
 
@@ -64,8 +63,9 @@ public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
         Provider provider = Provider.valueOf(userRequest.getClientRegistration()
                 .getRegistrationId().toUpperCase());
 
-        OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(provider,user.getAttributes());
-        Optional<Member> savedMember = memberRepository.findByUserId(userInfo.getId());
+        CustomOAuth2User customOAuth2User = CustomOAuth2UserFactory.getOAuth2UserInfo(provider,user);
+
+        Optional<Member> savedMember = memberRepository.findByUserId(customOAuth2User.getName());
         Member member;
         if(savedMember.isPresent()){
             member = savedMember.get();
@@ -74,29 +74,29 @@ public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
                         + "] use [" +member.getProvider() + "]");
             }
 
-            updateMember(member,userInfo);
+            updateMember(member,customOAuth2User);
         }else{
-            member = createMember(userInfo,provider);
+            member = createMember(customOAuth2User,provider);
         }
 
-        return MemberPrincipal.create(member,user.getAttributes() );
+        return customOAuth2User;
     }
 
-    private Member createMember(OAuth2UserInfo userInfo, Provider provider ){
+    private Member createMember(CustomOAuth2User customOAuth2User, Provider provider ){
         LocalDateTime now = LocalDateTime.now();
         Member member = Member.builder()
-                .userId(userInfo.getId())
-                .name(userInfo.getName())
-                .email(userInfo.getEmail())
+                .userId(customOAuth2User.getId())
+                .name(customOAuth2User.getName())
+                .email(customOAuth2User.getEmail())
                 .provider(provider)
-                .profileImage(userInfo.getImageUrl())
+                .profileImage(customOAuth2User.getImageUrl())
                 .role(Role.USER)
                 .build();
 
         return memberRepository.saveAndFlush(member);
     }
 
-    private Member updateMember(Member member, OAuth2UserInfo userInfo){
+    private Member updateMember(Member member, CustomOAuth2User customOAuth2User){
         /*
         바뀔수 있는 정보에 대한 업데이트
          */

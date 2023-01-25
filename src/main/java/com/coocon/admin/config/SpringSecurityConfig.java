@@ -32,6 +32,7 @@ public class SpringSecurityConfig {
 
         http    .authorizeRequests()
                 .antMatchers("/","/register/*","/oauth2/*","/login/*","/oauth/*").permitAll()
+                .antMatchers("/h2-console").permitAll()
                 .antMatchers("/dashboard").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated(); //permit한 리소스 제외 접근 시 인증 필요
@@ -42,6 +43,8 @@ public class SpringSecurityConfig {
                 .and().successHandler(oAuth2SuccessHandler)
                 .and().logout().logoutSuccessUrl("http://localhost:3000");
                 //로그인 성공시 서비스
+
+
 
 
         return http.build();

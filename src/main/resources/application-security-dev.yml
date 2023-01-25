@@ -24,7 +24,7 @@ spring:
               - profile_image
         provider:
           coocon:
-            authorization-uri: http://localhost:8080/oauth/authorize
+            authorization-uri: http://localhost:3000/pages/login/coocon
             token-uri: http://localhost:8080/oauth/token
             user-info-uri: http://localhost:8080/v2/user/me
             user-name-attribute: id
