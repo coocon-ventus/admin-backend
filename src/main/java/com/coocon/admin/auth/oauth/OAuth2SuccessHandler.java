@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 
 @Slf4j
@@ -24,8 +25,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                                                 Authentication authentication) throws IOException, ServletException {
         OAuth2User oAuth2User = (OAuth2User)authentication.getPrincipal();
 
-        // TODO token 발급 시스템
-        String accessToken = "oauth2_access_token";
+        // TODO jwt토큰 발급 시스템
+        String accessToken = UUID.randomUUID().toString();
 
         String targetUrl = makeRedirectUrl(accessToken);
 
@@ -39,7 +40,5 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     OAuth2SuccessHandler(String defaultTargetUrl){
         setDefaultTargetUrl(defaultTargetUrl);
     }
-
-
 }
 
