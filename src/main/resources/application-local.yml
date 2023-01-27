@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: application-security-dev.yml
+  datasource:
+    url: jdbc:postgresql://localhost:33331/aoalocaldb    # 자신이 사용하는 로컬환경 DB
+    username: postgres
+    password: 1q2w3e4r
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: aoalocal
+        format_sql: true
+        show_sql: true
+  application:
+    name: admin-local
+logging:
+  level:
+    org.hibernate.type: trace
+    com: debug

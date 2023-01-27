@@ -1,25 +1,8 @@
 server:
   port: 8380
 spring:
-  h2:
-    console:
-      enabled: true  # H2 Console? ???? ?? (H2 Console? H2 Database? UI? ????? ??)
-      path: /h2-console  # H2 Console? Path
-    # Database Setting Info (Database? H2? ???? ?? H2?? ?? ??)
-  datasource:
-    # H2 ?? ? ??? username ?? (??? ??? ??)
-    username: sa
-    # H2 ?? ? ??? password ?? (??? ??? ??)
-    password:
-    driver-class-name: org.h2.Driver  # Database? H2? ?????.
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-        format_sql: true
-        show_sql: true
+  profiles: # profiles 설정  active에 따라 디폴트 환경을 변경해줄수있다
+    active: dev
   spring:
     security:
       debug: true
