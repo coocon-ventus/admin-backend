@@ -1,24 +1,18 @@
 package com.coocon.admin.auth.oauth;
 
-import com.coocon.admin.auth.token.AccessToken;
+import com.coocon.admin.auth.token.IssueTokenResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -34,15 +28,15 @@ import java.util.UUID;
 public class CooconOAuthController {
 
     /**
-     * 인가코드 발급 API
+     * 인가코드 발급
      * @param clientId :
      * @param redirectUri :
      * @param redirectUri
-     * @param response
-     * @return
+     * @return ResponseEntity<?>
      */
     @PostMapping("/oauth/authorize")
-    public ResponseEntity<?> checkCooconAuth (@RequestParam(name ="client_id")  String clientId
+    public ResponseEntity<?> checkCooconAuth (
+            @RequestParam(name ="client_id")  String clientId
             , @RequestParam(name ="redirect_uri") String redirectUri
             , @RequestParam(name ="state") String state){
 
@@ -71,10 +65,10 @@ public class CooconOAuthController {
 
     /**
      * Token 발급 API
-     * @return
+     * @return IssueTokenResponse
      */
     @GetMapping("/oauth/token")
-    public AccessToken issueToken(){
+    public IssueTokenResponse issueToken(){
 
         // TODO authrorization server 의 역할 더 상세히 구현 필요 spring security 쓸지 참조 필요
         // https://spring.io/projects/spring-authorization-server#support
@@ -86,8 +80,9 @@ public class CooconOAuthController {
         //         String.valueOf(System.nanoTime()), Instant.now(),Instant.now().plus(1000, ChronoUnit.SECONDS),scopes);
         // TODO 사용자 auth 정보 확인하여 전달필요
 
-        AccessToken accessToken = AccessToken.builder().accessToken(UUID.randomUUID().toString())
+        IssueTokenResponse accessToken = IssueTokenResponse.builder().accessToken(UUID.randomUUID().toString())
                 .tokenType("BEARER")
+                .refreshToken("refresh_token")
                 .scopes(scopes)
                 .expiresIn(600).build();
         return accessToken;

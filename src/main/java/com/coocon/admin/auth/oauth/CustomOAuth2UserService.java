@@ -76,7 +76,7 @@ public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
 
             updateMember(member,customOAuth2User);
         }else{
-            member = createMember(customOAuth2User,provider);
+            createMember(customOAuth2User,provider);
         }
 
         return customOAuth2User;
