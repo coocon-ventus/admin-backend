@@ -3,13 +3,18 @@ package com.coocon.admin.config;
 
 import com.coocon.admin.auth.oauth.CustomOAuth2UserService;
 import com.coocon.admin.auth.oauth.OAuth2SuccessHandler;
+import com.coocon.admin.filter.JwtAuthFilter;
+import com.coocon.admin.filter.OAuth2TokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -19,9 +24,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SpringSecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final JwtAuthFilter jwtAuthFilter;
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http   .csrf().disable() //browser로부터 직접 받는게 아닐경우
                 .headers().frameOptions().sameOrigin()
                 .and().logout().logoutSuccessUrl("/");
@@ -31,10 +39,9 @@ public class SpringSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //세션으로 진행하지 않음
 
         http    .authorizeRequests()
-                .antMatchers("/","/register/*","/oauth2/*","/login/*","/oauth/*").permitAll()
-                .antMatchers("/h2-console").permitAll()
-                .antMatchers("/dashboard").hasRole("USER")
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/register/*","/oauth2/**","/login/*","/oauth/**","/h2-console/**","/error").permitAll()
+                .antMatchers("/dashboard/**").hasRole("USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated(); //permit한 리소스 제외 접근 시 인증 필요
 
         http.oauth2Login()
@@ -44,9 +51,7 @@ public class SpringSecurityConfig {
                 .and().logout().logoutSuccessUrl("http://localhost:3000");
                 //로그인 성공시 서비스
 
-
-
-
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
