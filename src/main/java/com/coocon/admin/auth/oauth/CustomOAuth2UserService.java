@@ -2,6 +2,7 @@ package com.coocon.admin.auth.oauth;
 
 import com.coocon.admin.member.Member;
 import com.coocon.admin.member.MemberRepository;
+import com.coocon.admin.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest)
@@ -65,7 +66,7 @@ public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
 
         CustomOAuth2User customOAuth2User = CustomOAuth2UserFactory.getOAuth2UserInfo(provider,user);
 
-        Optional<Member> savedMember = memberRepository.findByUserId(customOAuth2User.getName());
+        Optional<Member> savedMember = memberService.findByUserId(customOAuth2User.getName());
         Member member;
         if(savedMember.isPresent()){
             member = savedMember.get();
@@ -76,24 +77,10 @@ public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
 
             updateMember(member,customOAuth2User);
         }else{
-            createMember(customOAuth2User,provider);
+            member = memberService.createMemberByOAuthUser(customOAuth2User,provider);
         }
-
+        customOAuth2User.setId(member.getId());
         return customOAuth2User;
-    }
-
-    private Member createMember(CustomOAuth2User customOAuth2User, Provider provider ){
-        LocalDateTime now = LocalDateTime.now();
-        Member member = Member.builder()
-                .userId(customOAuth2User.getId())
-                .name(customOAuth2User.getName())
-                .email(customOAuth2User.getEmail())
-                .provider(provider)
-                .profileImage(customOAuth2User.getImageUrl())
-                .role(Role.USER)
-                .build();
-
-        return memberRepository.saveAndFlush(member);
     }
 
     private Member updateMember(Member member, CustomOAuth2User customOAuth2User){

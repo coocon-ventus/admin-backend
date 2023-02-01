@@ -23,8 +23,9 @@ import java.util.UUID;
  * Issue token
  * Check token
  */
-@RestController
+
 @Slf4j
+@RestController
 public class CooconOAuthController {
 
     /**
@@ -58,7 +59,7 @@ public class CooconOAuthController {
 
         log.debug("client-id = [{}]", clientId);
         if(!clientId.equals("coocon-admin")){
-            log.debug("BadCredentialsException");
+        //    log.debug("BadCredentialsException");
             throw new BadCredentialsException("client id is invalid");
         }
     }

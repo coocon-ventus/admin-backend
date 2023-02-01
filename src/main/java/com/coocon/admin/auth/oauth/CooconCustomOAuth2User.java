@@ -11,8 +11,8 @@ public class CooconCustomOAuth2User extends CustomOAuth2User {
     }
 
     @Override
-    public String getId() {
-        return (String) getAttributes().get("id");
+    public String getUserId() {
+        return (String) getAttributes().get("user_id");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class CooconCustomOAuth2User extends CustomOAuth2User {
 
     @Override
     public String getImageUrl() {
-        return (String) getAttributes().get("picture");
+        return (String) getAttributes().get("profile_image");
     }
 
 }

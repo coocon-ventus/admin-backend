@@ -19,8 +19,8 @@ public class CustomOAuth2User extends DefaultOAuth2User {
                             String nameKey){
         super(authorities,attributes, nameKey);
     }
-
-    private String id;
+    private Long id;
+    private String userId;
     private String email;
     private String imageUrl;
 

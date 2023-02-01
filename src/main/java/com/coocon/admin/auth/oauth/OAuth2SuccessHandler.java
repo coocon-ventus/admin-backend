@@ -1,5 +1,6 @@
 package com.coocon.admin.auth.oauth;
 
+import com.coocon.admin.auth.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -20,16 +21,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    private final JwtProvider jwtProvider;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-        OAuth2User oAuth2User = (OAuth2User)authentication.getPrincipal();
+        CustomOAuth2User oAuth2User = (CustomOAuth2User)authentication.getPrincipal();
 
-        // TODO jwt토큰 발급 시스템
-        String accessToken = UUID.randomUUID().toString();
+        String accessToken = jwtProvider.createTokenByOAuth2User(oAuth2User);
+        log.debug("[OAuth2SuccessHandler] token = [{}]",accessToken);
 
         String targetUrl = makeRedirectUrl(accessToken);
-
+        log.debug("[OAuth2SuccessHandler] targetUrl = [{}]",targetUrl);
         getRedirectStrategy().sendRedirect(request,response,targetUrl);
     }
     private String makeRedirectUrl(String token) {
@@ -37,8 +40,10 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 .queryParam("token", token)
                 .build().toUriString();
     }
+    /*
     OAuth2SuccessHandler(String defaultTargetUrl){
         setDefaultTargetUrl(defaultTargetUrl);
     }
+     */
 }
 

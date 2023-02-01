@@ -4,7 +4,6 @@ package com.coocon.admin.member;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.coocon.admin.auth.oauth.Provider;
-import com.coocon.admin.auth.oauth.Role;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,10 +32,7 @@ public class MemberRepositoryTest {
                 .email("default@coocon.net")
                 .password("1243")
                 .profileImage("")
-                .role(Role.ADMIN)
                 .provider(Provider.COOCON)
-                .accountNonLocked(true)
-                .credentialsNonExpired(true)
                 .build();
         memberRepository.save(member1);
     }
@@ -55,10 +51,7 @@ public class MemberRepositoryTest {
                 .email("test1@coocon.net")
                 .password("testtset")
                 .profileImage("proimage")
-                .role(Role.ADMIN)
                 .provider(Provider.COOCON)
-                .accountNonLocked(true)
-                .credentialsNonExpired(true)
                 .build();
         //When
         memberRepository.save(member);

@@ -38,6 +38,7 @@ public class SpringSecurityConfig {
         http    .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //세션으로 진행하지 않음
 
+        // TODO DB에서 권한별 화면 조정등에 대한 것을 불러와서 자동으로 넣어주도록 수정
         http    .authorizeRequests()
                 .antMatchers("/register/*","/oauth2/**","/login/*","/oauth/**","/h2-console/**","/error").permitAll()
                 .antMatchers("/dashboard/**").hasRole("USER")

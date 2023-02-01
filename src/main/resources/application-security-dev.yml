@@ -26,15 +26,10 @@ spring:
           coocon:
             authorization-uri: http://localhost:3000/pages/login/coocon
             token-uri: http://localhost:8080/oauth/token
-            user-info-uri: http://localhost:8080/v2/user/me
+            user-info-uri: http://localhost:8080/member/me
             user-name-attribute: id
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8180/jwt/issuer
-          jwk-set-uri: https://idp.example.com/oauth2/jwks
-          public-key-location: classpath:public.pem

@@ -14,12 +14,13 @@ import java.util.Map;
 @Getter
 public class KakaoCustomOAuth2User extends CustomOAuth2User {
 
-    private final Map<String,Object> kakaoAttributes;
+    //private final Map<String,Object> kakaoAttributes;
     private String nickname;
 
     public KakaoCustomOAuth2User(OAuth2User oauth2User) {
         super(oauth2User, "id");
-        this.kakaoAttributes = oauth2User.getAttribute("properties");
+        //this.kakaoAttributes = oauth2User.getAttribute("properties");
+        Map<String,Object> kakaoAttributes  = oauth2User.getAttribute("properties");
 
         if(kakaoAttributes != null){
             this.nickname = (String) kakaoAttributes.get("nickname");
@@ -27,7 +28,7 @@ public class KakaoCustomOAuth2User extends CustomOAuth2User {
             setEmail( (String) kakaoAttributes.get("nickname"));
             setImageUrl((String)kakaoAttributes.get("profile_image"));
         }
-        setId(String.valueOf(getAttributes().get("id")));
+        setUserId(String.valueOf(getAttributes().get("id")));
     }
 
 }

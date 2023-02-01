@@ -1,7 +1,6 @@
 package com.coocon.admin.member;
 
 import com.coocon.admin.auth.oauth.Provider;
-import com.coocon.admin.auth.oauth.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -22,27 +21,20 @@ import java.util.*;
 @NoArgsConstructor
 public class Member implements UserDetails {
 
-    @JsonIgnore
     @Id
-    @Column(name = "SEQ")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seq;
+    private Long id;
 
     @NotNull
     private String userId;
 
     private String name;
 
-    //@Column(unique = true)
     private String email;
 
     private String password;
 
     private String profileImage;
-
-    @Column
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
 
     @Column
     @Enumerated(value = EnumType.STRING)
@@ -70,22 +62,24 @@ public class Member implements UserDetails {
     }
 
     @Builder
-    Member(String userId, String password, String email, String name, Role role
-            , Provider provider, String profileImage, boolean accountNonLocked, boolean credentialsNonExpired,
-           boolean enabled){
+    Member(String userId, String password, String email, String name
+            , Provider provider, String profileImage){
         this.userId = userId;
         this.password = password;
         this.profileImage = profileImage;
         this.name = name;
-        this.role = role;
         this.email = email;
         this.provider = provider;
-        this.accountNonLocked = accountNonLocked;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.enabled = enabled;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired =true;
+        this.enabled = true;
     }
 
+    /**
+     * @deprecated use MemberService.getMemberAuthorities
+     */
     @Override
+    @Deprecated
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
