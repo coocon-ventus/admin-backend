@@ -35,8 +35,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         log.debug("[OAuth2SuccessHandler] targetUrl = [{}]",targetUrl);
         getRedirectStrategy().sendRedirect(request,response,targetUrl);
     }
+    // TODO .yml 에서 읽어올 수 있도록 수정 필요
     private String makeRedirectUrl(String token) {
-        return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth2/redirect")
+        return UriComponentsBuilder.fromUriString("http://localhost:3000/auth/redirect")
                 .queryParam("token", token)
                 .build().toUriString();
     }

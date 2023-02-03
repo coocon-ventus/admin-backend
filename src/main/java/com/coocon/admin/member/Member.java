@@ -49,6 +49,10 @@ public class Member implements UserDetails {
 
     private boolean enabled;
 
+    /*
+    @OneToMany(mappedBy = "member_role", fetch=FetchType.LAZY)
+    private List<MemberRole> memberRoles;
+    */
     public Member(String userId, String password, boolean enabled,
                 boolean credentialsNonExpired, boolean accountNonLocked
                 ) {
