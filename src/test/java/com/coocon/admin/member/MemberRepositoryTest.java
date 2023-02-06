@@ -3,17 +3,15 @@ package com.coocon.admin.member;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.coocon.admin.auth.oauth.Provider;
+import com.coocon.admin.security.entity.Provider;
+import com.coocon.admin.member.entity.Member;
+import com.coocon.admin.member.repository.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
-
-import javax.transaction.Transactional;
 
 @DataJpaTest
 //@ActiveProfiles("dev")

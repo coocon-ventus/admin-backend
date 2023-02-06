@@ -1,22 +1,17 @@
 package com.coocon.admin.auth.jwt;
 
-import com.coocon.admin.auth.oauth.CustomOAuth2User;
-import com.coocon.admin.member.MemberService;
-import io.jsonwebtoken.Jwt;
+import com.coocon.admin.member.service.MemberService;
+import com.coocon.admin.security.util.JwtProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class JwtProviderTest {
 
