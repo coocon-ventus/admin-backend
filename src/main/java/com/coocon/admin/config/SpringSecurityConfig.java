@@ -10,6 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -37,7 +39,7 @@ public class SpringSecurityConfig {
 
         // TODO DB에서 권한별 화면 조정등에 대한 것을 불러와서 자동으로 넣어주도록 수정
         http    .authorizeRequests()
-                .antMatchers("/register/*","/oauth2/**","/login/*","/oauth/**","/h2-console/**","/error").permitAll()
+                .antMatchers("/register/*","/oauth2/**","/login/*","/oauth/**","/h2-console/**","/error","/login").permitAll()
                 .antMatchers("/dashboard/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated(); //permit한 리소스 제외 접근 시 인증 필요
@@ -67,6 +69,10 @@ public class SpringSecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**",corsConfiguration);
         return source;
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 }

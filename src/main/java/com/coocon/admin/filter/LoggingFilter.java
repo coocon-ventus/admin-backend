@@ -7,10 +7,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.UUID;
 
 @WebFilter
@@ -28,28 +26,29 @@ public class LoggingFilter implements Filter {
         printHeaders(req);
         printParameters(req);
 
-        printInputBody(req);
+   //     printInputBody(req);
 
         chain.doFilter(request, response);
         log.info("###### HTTP RESPONSE OUTPUT status {} ######", res.getStatus());
     }
 
     private void printInputBody(HttpServletRequest req) throws IOException {
-        InputStream inputStream = req.getInputStream();
-        String bodyJson = "";
-
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader br = null;
-        String line = "";
-
-        if(inputStream != null){
-            br = new BufferedReader(new InputStreamReader(inputStream));
-            //더 읽을 라인이 없을때까지 계속
-            while ((line = br.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-            log.debug("INPUT BODY= [{}]",stringBuilder.toString());
-        }
+//        InputStream inputStream = req.getInputStream();
+//        String bodyJson = "";
+//        StringBuilder stringBuilder = new StringBuilder();
+//        BufferedReader br = null;
+//        String line = "";
+//
+//        if(inputStream != null){
+//            br = new BufferedReader(new InputStreamReader(inputStream));
+//
+//            //더 읽을 라인이 없을때까지 계속
+//            br.lines().collect(Collectors.joining(System.lineSeparator()));
+//            while ((line = br.readLine()) != null) {
+//                stringBuilder.append(line);
+//            }
+//            log.debug("INPUT BODY= [{}]",stringBuilder.toString());
+//        }
     }
 
     private void printHeaders(HttpServletRequest req) {
