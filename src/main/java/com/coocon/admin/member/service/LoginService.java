@@ -17,8 +17,11 @@ public class LoginService {
     public LoginDto.response login(LoginDto.reqeust loginRequestDto){
         String email = loginRequestDto.getEmail();
         Member member = memberRepository.findByEmail(email).orElseThrow();
-        long id = member.getId();
+        if(!member.getPassword().equals(loginRequestDto.getPassword())){
+            throw new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다");
+        }
 
+        long id = member.getId();
         String accessToken =  memberTokenService.createToken(id);
         log.debug("ISSUE SUCCESS! token = [{}]", accessToken);
 

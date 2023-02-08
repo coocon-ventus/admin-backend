@@ -45,10 +45,10 @@ public class SpringSecurityConfig {
                 .anyRequest().authenticated(); //permit한 리소스 제외 접근 시 인증 필요
 
         http.oauth2Login()
-                .loginPage("http://localhost:3000/pages/login/login3")
+                .loginPage("http://localhost:3000/login")
                 .userInfoEndpoint().userService(customOAuth2UserService)
                 .and().successHandler(oAuth2SuccessHandler)
-                .and().logout().logoutSuccessUrl("http://localhost:3000");
+                .and().logout().logoutSuccessUrl("http://localhost:3000/login");
                 //로그인 성공시 서비스
 
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

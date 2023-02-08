@@ -3,6 +3,3 @@ server:
 spring:
   profiles: # profiles 설정  active에 따라 디폴트 환경을 변경해줄수있다
     active: dev
-logging:
-  level:
-    com: debug

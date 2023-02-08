@@ -1,6 +1,6 @@
 spring:
   security:
-    debug: true
+#    debug: true
     oauth2:
       client:
         registration:
@@ -13,8 +13,8 @@ spring:
             redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
             authorization-grant-type: authorization_code
           kakao:
-            client-id: 5a6ef30ee2a390fd65baa6cc41b0d9a8
-            client-secret: 7dZd9xa4aTyVIOhCoYqICWLGIVuomqDq
+            client-id: kakao-client-id
+            client-secret: kakao-client-secret
             redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
             authorization-grant-type: authorization_code
             client-authentication-method: POST
@@ -24,7 +24,7 @@ spring:
               - profile_image
         provider:
           coocon:
-            authorization-uri: http://localhost:3000/pages/login/coocon
+            authorization-uri: http://localhost:3000/login
             token-uri: http://localhost:8080/oauth/token
             user-info-uri: http://localhost:8080/member/me
             user-name-attribute: id

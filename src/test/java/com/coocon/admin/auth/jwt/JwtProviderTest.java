@@ -18,7 +18,7 @@ class JwtProviderTest {
     @Mock
     private static MemberService memberService;
 
-    private static JwtProvider jwtProvider = new JwtProvider( memberService);
+    private static JwtProvider jwtProvider = new JwtProvider();
     private static Map<String, Object> attributes = new HashMap<String,Object>();
     private static Collection<? extends GrantedAuthority> authorities;
 

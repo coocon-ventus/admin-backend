@@ -2,6 +2,7 @@ package com.coocon.admin.security.filter;
 
 import com.coocon.admin.member.service.MemberAuthService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final static String AUTH_HEADER = "Authorization";
     private final MemberAuthService memberAuthService;
@@ -22,7 +24,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader(AUTH_HEADER);
-        if(token != null){
+
+
+        log.info("JwtTokenFilter uri = [{}]", request.getRequestURL().toString());
+        if(token != null && !token.isEmpty()){
             Authentication authentication = memberAuthService.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

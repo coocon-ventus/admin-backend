@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * Coocon OAuth controller
@@ -34,8 +35,8 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<?> login (@RequestBody Map<String,Object> logoutRequest){
-
+    public ResponseEntity<?> logout (@RequestBody Map<String,Object> logoutRequest){
         return ResponseEntity.ok("test");
     }
+
 }
