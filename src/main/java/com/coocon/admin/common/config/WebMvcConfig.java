@@ -1,6 +1,7 @@
 package com.coocon.admin.common.config;
 
 import com.coocon.admin.common.filter.LoggingFilter;
+import com.coocon.admin.common.filter.RequestResponseWrapperFilter;
 import com.coocon.admin.common.interceptor.DefaultInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Bean
+    public FilterRegistrationBean requestResponsefilterBean(){
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new RequestResponseWrapperFilter());
+        registrationBean.addUrlPatterns("/*");
+        return registrationBean;
+    }
     @Bean
     public FilterRegistrationBean filterBean(){
         FilterRegistrationBean registrationBean = new FilterRegistrationBean(new LoggingFilter());
