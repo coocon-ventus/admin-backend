@@ -13,7 +13,6 @@ public class MemberDto {
     public static class info{
         private Long id;
         private String name;
-        private String userId;
         private String profileImage;
         private String email;
         private List<Role> role;

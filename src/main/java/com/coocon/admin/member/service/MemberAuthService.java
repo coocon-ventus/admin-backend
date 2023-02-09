@@ -4,6 +4,7 @@ import com.coocon.admin.member.entity.Member;
 import com.coocon.admin.member.repository.MemberRepository;
 import com.coocon.admin.security.entity.CustomOAuth2User;
 import com.coocon.admin.security.entity.Provider;
+import com.coocon.admin.security.service.SpringSecurityService;
 import com.coocon.admin.security.util.JwtProvider;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;

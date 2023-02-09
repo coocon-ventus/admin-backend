@@ -36,7 +36,6 @@ public class MemberService {
         return memberRepository.findByUserId(userId);
     }
 
-
     public Member findByUserIdNonNull(String userId){
         return memberRepository.findByUserId(userId).orElseThrow();
     }
@@ -44,6 +43,8 @@ public class MemberService {
     public Member getMemberById(Long id){
         return memberRepository.findById(id).orElseThrow();
     }
+
+
 
     public List<MemberRole> getMemberRoleList(Long id){
         return memberRoleRepository.findByMember_Id(id);
