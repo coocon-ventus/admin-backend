@@ -1,8 +1,10 @@
 package com.coocon.admin.common.filter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.result.Output;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
+import org.springframework.util.StreamUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -22,34 +24,27 @@ public class LoggingFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
 
         MDC.put("traceId", UUID.randomUUID().toString());
         log.info("###### HTTP REQUEST INPUT - {}) ######",req.getRequestURI());
 
         printHeaders(req);
         printParameters(req);
-        printInputBody(req);
-
-        chain.doFilter(req, response);
+        printBody(true,req.getInputStream());
+        chain.doFilter(request, response);
+        ResponseWrapper res = (ResponseWrapper) response;
+        printBody(false,res.getContentInputStream());
         log.info("###### HTTP RESPONSE OUTPUT status {} ######", res.getStatus());
     }
 
-    private void printInputBody(HttpServletRequest req) throws IOException {
-        InputStream inputStream = req.getInputStream();
-        String bodyJson = "";
+    private void printBody(boolean isInput, InputStream inputstream) throws IOException {
+        byte[] content = StreamUtils.copyToByteArray(inputstream);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader br = null;
-        String line = "";
+        String type = isInput? "REQUEST" : "RESPONSE" ;
 
-        if(inputStream != null){
-            br = new BufferedReader(new InputStreamReader(inputStream));
-            //더 읽을 라인이 없을때까지 계속
-            while ((line = br.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-            log.debug("INPUT BODY= [{}]",stringBuilder.toString());
+        if (content.length > 0) {
+            String contentString = new String(content);
+            log.info("{} BODY= [{}]", type,contentString);
         }
     }
 

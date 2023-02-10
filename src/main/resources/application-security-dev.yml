@@ -1,6 +1,5 @@
 spring:
   security:
-#    debug: true
     oauth2:
       client:
         registration:
@@ -33,3 +32,5 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
+    filter:
+      order: -50

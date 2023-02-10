@@ -1,6 +1,7 @@
 package com.coocon.admin.common.config;
 
 
+import com.coocon.admin.security.filter.JwtExceptionHandleFilter;
 import com.coocon.admin.security.service.CustomOAuth2UserService;
 import com.coocon.admin.security.handler.OAuth2SuccessHandler;
 import com.coocon.admin.security.filter.JwtAuthFilter;
@@ -24,6 +25,7 @@ public class SpringSecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final JwtAuthFilter jwtAuthFilter;
+    private  final JwtExceptionHandleFilter jwtExceptionHandleFilter;
 
 
     @Bean
@@ -51,7 +53,10 @@ public class SpringSecurityConfig {
                 .and().logout().logoutSuccessUrl("http://localhost:3000/login");
                 //로그인 성공시 서비스
 
+
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtExceptionHandleFilter, JwtAuthFilter.class);
+
         return http.build();
     }
 

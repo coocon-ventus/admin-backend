@@ -14,6 +14,7 @@ import java.io.IOException;
 public class RequestResponseWrapperFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+
         filterChain.doFilter(
                 new RequestWrapper(request),
                 new ResponseWrapper(response)

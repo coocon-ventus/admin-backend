@@ -12,17 +12,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+
     @Bean
     public FilterRegistrationBean requestResponsefilterBean(){
         FilterRegistrationBean registrationBean = new FilterRegistrationBean(new RequestResponseWrapperFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setOrder(0);
         return registrationBean;
     }
+
     @Bean
     public FilterRegistrationBean filterBean(){
         FilterRegistrationBean registrationBean = new FilterRegistrationBean(new LoggingFilter());
         registrationBean.addUrlPatterns("/*");
-
+        registrationBean.setOrder(1);
         return  registrationBean;
     }
 
