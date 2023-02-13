@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ServiceMenuRepository extends JpaRepository<ServiceMenu,Long> {
-    Optional<ServiceMenu> findByService_Id(long id);
+    Optional<ServiceMenu> findByServiceCategory_id(long id);
 }

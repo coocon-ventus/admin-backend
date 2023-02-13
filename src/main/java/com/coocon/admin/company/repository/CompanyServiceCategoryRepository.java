@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface CompanyServiceCategoryRepository extends JpaRepository<CompanyServiceCategory,Long> {
-    List<CompanyServiceCategory> findBycompany_id(Long company_id);
-    List<CompanyServiceCategory> findByservice_id(Long service_id);
+    List<CompanyServiceCategory> findByCompany_id(Long company_id);
+    List<CompanyServiceCategory> findByServiceCategory_id(Long service_id);
 }
