@@ -1,5 +1,6 @@
 package com.coocon.admin.member.controller;
 
+import com.coocon.admin.common.error.ErrorResponse;
 import com.coocon.admin.member.dto.LoginDto;
 import com.coocon.admin.member.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,16 @@ import java.util.NoSuchElementException;
 @RestController
 public class LoginController {
 
-    @Autowired
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> illegalLoginInfo(IllegalArgumentException e){
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .errorCode("LOGIN_ERROR").errorMessage(e.getMessage()).build();
+
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+   @Autowired
     private LoginService loginService;
 
     @PostMapping("/login")

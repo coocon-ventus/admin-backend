@@ -11,6 +11,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@Builder
 //@JsonProperty
 public class ErrorResponse {
     String errorCode;
