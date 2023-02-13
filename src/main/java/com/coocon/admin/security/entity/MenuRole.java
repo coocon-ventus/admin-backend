@@ -29,5 +29,4 @@ public class MenuRole {
         this.role = role;
         this.serviceMenu = serviceMenu;
     }
-
 }
