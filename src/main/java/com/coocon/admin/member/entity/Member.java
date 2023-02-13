@@ -26,6 +26,9 @@ public class Member implements UserDetails {
     @NotNull
     private String userId;
 
+    @NotNull
+    private String companyId;
+
     private String name;
 
     private String email;
@@ -64,7 +67,7 @@ public class Member implements UserDetails {
     }
 
     @Builder
-    Member(String userId, String password, String email, String name
+    Member(String userId, String password, String companyId, String email, String name
             , Provider provider, String profileImage){
         this.userId = userId;
         this.password = password;
