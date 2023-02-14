@@ -1,10 +1,9 @@
 package com.coocon.admin.member.entity;
 
-import com.coocon.admin.product.entity.ProductRole;
+import com.coocon.admin.product.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -12,9 +11,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
-public class MemberRole {
+public class MemberProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,15 +22,16 @@ public class MemberRole {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="role_id", referencedColumnName = "id")
-    private ProductRole productRole;
+    @JoinColumn(name="product_id", referencedColumnName = "id")
+    private Product product;
+
+    @Builder
+    public MemberProduct(Member member, Product product){
+        this.member = member;
+        this.product = product;
+    }
 
     @CreatedDate
     private LocalDateTime createdAt;
-
-    @Builder
-    public MemberRole(Member member){
-        this.member = member;
-    }
 
 }

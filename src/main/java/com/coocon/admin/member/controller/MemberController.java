@@ -24,7 +24,7 @@ public class MemberController {
     public MemberDto.info getMemberInfo(){
         Member member = springSecurityService.getMemberFromAuthentication();
         log.info("getMemberInfo result = [{}]", member.toString());
-        return MemberDto.info.builder().name(member.getName())
+        return MemberDto.info.builder().name(member.getNickname())
                 .id(member.getId()).build();
     }
 }

@@ -4,7 +4,6 @@ import com.coocon.admin.member.entity.Member;
 import com.coocon.admin.member.repository.MemberRepository;
 import com.coocon.admin.security.entity.CustomOAuth2User;
 import com.coocon.admin.security.entity.Provider;
-import com.coocon.admin.security.service.SpringSecurityService;
 import com.coocon.admin.security.util.JwtProvider;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ public class MemberAuthService {
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
 
-
     public Authentication getAuthentication(String token){
         Claims claims = jwtProvider.parserJwtToken(token);
         log.debug("Claims = [{}]",claims.toString());
@@ -44,11 +42,8 @@ public class MemberAuthService {
     public Member createMemberByOAuthUser(CustomOAuth2User oauth2User, Provider provider){
         LocalDateTime now = LocalDateTime.now();
         Member member = Member.builder()
-                .userId(oauth2User.getUserId())
-                .name(oauth2User.getName())
+                .nickname(oauth2User.getName())
                 .email(oauth2User.getEmail())
-                .provider(provider)
-                .profileImage(oauth2User.getImageUrl())
                 .build();
         return memberRepository.saveAndFlush(member);
     }
@@ -65,7 +60,7 @@ public class MemberAuthService {
     }
 
     public List<GrantedAuthority> getMemberAuthorities(Long id){
-        return memberService.getMemberRoleList(id).stream().map(memberRole-> new SimpleGrantedAuthority(memberRole.getRole().getAuthority()))
+        return memberService.getMemberRoleList(id).stream().map(memberRole-> new SimpleGrantedAuthority(memberRole.getProductRole().getAuthority()))
                 .collect(Collectors.toList());
     }
 

@@ -1,7 +1,5 @@
 package com.coocon.admin.product.entity;
 
-import com.coocon.admin.company.entity.Company;
-import com.coocon.admin.security.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,36 +9,38 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class ServiceMenu {
+public class ProductMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="serviceCategory_id", referencedColumnName = "id")
-    private ServiceCategory serviceCategory;
+    @JoinColumn(name="product_id", referencedColumnName = "id")
+    private Product product;
 
     private String name;
 
     private Integer depth;
 
-    private Long parent_menu;
+    private Long parentMenu;
 
     private String url;
-
     private String description;
 
-    @Builder
-    public ServiceMenu(ServiceCategory serviceCategory, String name,
-                       Integer depth, Long parent_menu,
-                       String url, String description){
+    @Column(name="menu_order")
+    private int order;
+    private String type;
 
-        this.serviceCategory = serviceCategory;
+    @Builder
+    public ProductMenu(String name,
+                       Integer depth, Long parentMenu,
+                       String url, String description, int order, String type){
         this.name= name;
         this.depth = depth;
-        this.parent_menu = parent_menu;
+        this.parentMenu = parentMenu;
         this.url = url;
         this.description = description;
+        this.order = order;
+        this.type = type;
     }
-
 }

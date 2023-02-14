@@ -1,6 +1,6 @@
 package com.coocon.admin.member.dto;
 
-import com.coocon.admin.security.entity.Role;
+import com.coocon.admin.product.entity.ProductRole;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +15,6 @@ public class MemberDto {
         private String name;
         private String profileImage;
         private String email;
-        private List<Role> role;
+        private List<ProductRole> productRole;
     }
 }

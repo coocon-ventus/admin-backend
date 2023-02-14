@@ -6,29 +6,25 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="MEMBER")
+@Table
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class ServiceCategory {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
+    private String code;
+    @NotNull
     private String name;
 
-    @NotNull
-    private String code;
-
-    private String description;
-
     @Builder
-    ServiceCategory(String name, String code, String description){
+    Product(String name, String code){
         this.name = name;
         this.code = code;
-        this.description = description;
     }
 }

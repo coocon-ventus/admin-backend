@@ -69,14 +69,16 @@ public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
 
         CustomOAuth2User customOAuth2User = CustomOAuth2UserFactory.getOAuth2UserInfo(provider,user);
 
-        Optional<Member> savedMember = memberService.findByUserId(customOAuth2User.getName());
+        Optional<Member> savedMember = memberService.getMemberByEmail(customOAuth2User.getName());
         Member member;
         if(savedMember.isPresent()){
             member = savedMember.get();
+            /*
             if(provider != member.getProvider()){
                 throw new OAuthProviderMissMatchException("Request provider type is ["+ provider
                         + "] use [" +member.getProvider() + "]");
             }
+             */
 
             updateMember(member,customOAuth2User);
         }else{

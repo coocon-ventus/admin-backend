@@ -32,19 +32,13 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
-    public Optional<Member> findByUserId(String userId){
-        return memberRepository.findByUserId(userId);
-    }
-
-    public Member findByUserIdNonNull(String userId){
-        return memberRepository.findByUserId(userId).orElseThrow();
-    }
-
     public Member getMemberById(Long id){
         return memberRepository.findById(id).orElseThrow();
     }
 
-
+    public Optional<Member> getMemberByEmail(String email){
+        return memberRepository.findByEmail(email);
+    }
 
     public List<MemberRole> getMemberRoleList(Long id){
         return memberRoleRepository.findByMember_Id(id);
