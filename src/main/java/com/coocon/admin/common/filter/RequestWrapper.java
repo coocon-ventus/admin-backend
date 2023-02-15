@@ -16,7 +16,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
     public RequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
-
+        request.getParameterMap();
         try (InputStream inputStream = request.getInputStream()) {
             this.rawData = StreamUtils.copyToByteArray(inputStream);
         }
