@@ -37,13 +37,13 @@ public class MemberController {
     }
 
     @GetMapping("/menu/list")
-    public List<SortedMenu> getMemberMenu(){
+    //public List<SortedMenu> getMemberMenu(){
+    public List<MenuDto.item> getMemberMenu(){
         Member member = springSecurityService.getMemberFromAuthentication();
         List<Long> memberRoleList =  memberService.getMemberRoleList(member.getId())
                 .stream().map(memberRole -> memberRole.getId()).collect(Collectors.toList());
 
-        return productService.getMenuListByRootMenu(memberRoleList);
+       // return productService.getMenuListByRootMenu(memberRoleList);
+        return productService.getMenuList(memberRoleList);
     }
-
-
 }

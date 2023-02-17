@@ -19,7 +19,7 @@ public class ProductMenu {
     @JoinColumn(name="product_id", referencedColumnName = "id")
     private Product product;
 
-    private String name;
+    private String title;
 
     private Integer depthNo;
 
@@ -32,10 +32,10 @@ public class ProductMenu {
     private String type;
 
     @Builder
-    public ProductMenu(String name,
+    public ProductMenu(String title,
                        Integer depth, Long parentMenu,
                        String url, String description, int order, String type){
-        this.name= name;
+        this.title= title;
         this.depthNo = depthNo;
         this.parentMenu = parentMenu;
         this.url = url;

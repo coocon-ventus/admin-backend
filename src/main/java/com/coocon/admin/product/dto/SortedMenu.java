@@ -7,9 +7,10 @@ import lombok.ToString;
  */
 public interface SortedMenu {
     Long getId();
-    String getName();
+    String getTitle();
     int getDepthNo();
     String getUrl();
     String getSortedOrder();
     String getDescription();
+    String getType();
 }

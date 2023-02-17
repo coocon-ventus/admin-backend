@@ -1,22 +1,35 @@
 package com.coocon.admin.product.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import com.coocon.admin.product.entity.ProductMenu;
+import lombok.*;
 
 public class MenuDto {
 
     @Builder
     @Getter
+    @Setter
     @ToString
     @AllArgsConstructor
-    public static class sortedMenu{
+    public static class item{
         private Long id;
-        private String name;
+        private String title;
         private int depthNo;
         private String url;
         private String description;
-        private String sortedOrder;
+        private Long parentMenu;
+        private String type;
+        private int order;
+
+        public item(ProductMenu productMenu){
+            this.id = productMenu.getId();
+            this.title = productMenu.getTitle();
+            this.depthNo = productMenu.getDepthNo();
+            this.url = productMenu.getUrl();
+            this.description = productMenu.getDescription();
+            this.parentMenu = productMenu.getParentMenu();
+            this.type = productMenu.getType();
+            this.order = productMenu.getOrderNo();
+        }
     }
+
 }

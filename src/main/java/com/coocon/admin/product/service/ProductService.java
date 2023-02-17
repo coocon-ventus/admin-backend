@@ -16,17 +16,28 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    private final ProductMenuRepository ProductMenuRepository;
+    private final ProductMenuRepository productMenuRepository;
     private final MenuRoleRepository menuRoleRepository;
 
 
 
-    public List<SortedMenu> getMenuListByRootMenu(List<Long> roleIdList){
-        List<Long> rootMenuList = menuRoleRepository.findByProductRole_IdIn(roleIdList).stream()
+    public List<Long> getMenuIdListByRoleIdList(List<Long> roleIdList){
+        return menuRoleRepository.findByProductRole_IdIn(roleIdList).stream()
                 .map(menuRole -> menuRole.getProductMenu().getId())
                 .collect(Collectors.toList());
-        List<SortedMenu> menuList =  ProductMenuRepository.findRecursiveByMenuIdList(rootMenuList);
+    }
+
+    public List<SortedMenu> getSortedMenuListByRoleIdList(List<Long> roleIdList){
+        List<Long> authedMenuList = getMenuIdListByRoleIdList(roleIdList);
+        List<SortedMenu> menuList =  productMenuRepository.findRecursiveByMenuIdList(authedMenuList);
         return menuList;
+    }
+
+    public List<MenuDto.item> getMenuList(List<Long> roleIdList){
+
+        List<Long> authedMenuList = getMenuIdListByRoleIdList(roleIdList);
+        List<ProductMenu> productMenuList = productMenuRepository.findByIdInOrderByOrderNo(authedMenuList);
+        return productMenuList.stream().map(MenuDto.item::new).collect(Collectors.toList());
     }
 
 }

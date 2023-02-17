@@ -31,4 +31,14 @@ class ProductMenuRepositoryTest {
         menuList.stream().forEach(
                 menu-> System.out.println("id = " +menu.getId() + " sorted order = " + menu.getSortedOrder()));
     }
+
+    @Test
+    void success_findInIds(){
+        List<Long> idList = Arrays.asList(1L,2L,5L);
+
+        List<ProductMenu> productMeneList = productMenuRepository.findByIdInOrderByOrderNo(idList);
+        productMeneList.forEach(
+                productMenu -> System.out.println("[prodcut Menu]id = " +productMenu.getId() + " parent id = " + productMenu.getParentMenu())
+        );
+    }
 }
