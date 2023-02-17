@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MemberAuthService {
+public class MemberRoleService {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;

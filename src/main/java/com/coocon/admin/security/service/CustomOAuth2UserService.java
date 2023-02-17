@@ -1,8 +1,7 @@
 package com.coocon.admin.security.service;
 
-import com.coocon.admin.member.service.MemberAuthService;
+import com.coocon.admin.member.service.MemberRoleService;
 import com.coocon.admin.security.repository.CustomOAuth2UserFactory;
-import com.coocon.admin.security.exception.OAuthProviderMissMatchException;
 import com.coocon.admin.security.entity.Provider;
 import com.coocon.admin.member.entity.Member;
 import com.coocon.admin.member.service.MemberService;
@@ -24,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
-    private final MemberAuthService memberAuthService;
+    private final MemberRoleService memberRoleService;
     private final MemberService memberService;
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest)
@@ -82,7 +81,7 @@ public class CustomOAuth2UserService  extends DefaultOAuth2UserService {
 
             updateMember(member,customOAuth2User);
         }else{
-            member = memberAuthService.createMemberByOAuthUser(customOAuth2User,provider);
+            member = memberRoleService.createMemberByOAuthUser(customOAuth2User,provider);
         }
         customOAuth2User.setId(member.getId());
         return customOAuth2User;

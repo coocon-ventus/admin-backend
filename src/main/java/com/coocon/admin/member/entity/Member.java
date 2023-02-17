@@ -20,7 +20,7 @@ import java.util.*;
 @Table(name ="MEMBER")
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "company")
 @NoArgsConstructor
 public class Member implements UserDetails {
 

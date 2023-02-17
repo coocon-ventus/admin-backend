@@ -3,6 +3,7 @@ package com.coocon.admin.product.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -20,15 +21,14 @@ public class ProductMenu {
 
     private String name;
 
-    private Integer depth;
+    private Integer depthNo;
 
     private Long parentMenu;
 
     private String url;
     private String description;
 
-    @Column(name="menu_order")
-    private int order;
+    private int orderNo;
     private String type;
 
     @Builder
@@ -36,11 +36,11 @@ public class ProductMenu {
                        Integer depth, Long parentMenu,
                        String url, String description, int order, String type){
         this.name= name;
-        this.depth = depth;
+        this.depthNo = depthNo;
         this.parentMenu = parentMenu;
         this.url = url;
         this.description = description;
-        this.order = order;
+        this.orderNo = orderNo;
         this.type = type;
     }
 }

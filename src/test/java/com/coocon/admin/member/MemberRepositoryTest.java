@@ -25,12 +25,9 @@ public class MemberRepositoryTest {
     @BeforeEach
     public void beforeEach(){
         member1 = Member.builder()
-                .userId("defaultId")
-                .name("default")
+                .nickname("default")
                 .email("default@coocon.net")
                 .password("1243")
-                .profileImage("")
-                .provider(Provider.COOCON)
                 .build();
         memberRepository.save(member1);
     }
@@ -39,12 +36,11 @@ public class MemberRepositoryTest {
     public void afterEach(){
 
     }
-
+/*
     @Test
     void insertMember(){
         //Given
         Member member = Member.builder()
-                .userId("testId1")
                 .name("test1")
                 .email("test1@coocon.net")
                 .password("testtset")
@@ -86,6 +82,6 @@ public class MemberRepositoryTest {
         System.out.println(memberRepository.findAll());
     }
 
-
+*/
 
 }

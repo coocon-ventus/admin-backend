@@ -17,4 +17,7 @@ public class MemberDto {
         private String email;
         private List<ProductRole> productRole;
     }
+
+
+
 }
