@@ -1,6 +1,7 @@
 package com.coocon.admin.member.service;
 
 import com.coocon.admin.member.dto.LoginDto;
+import com.coocon.admin.member.dto.MemberDto;
 import com.coocon.admin.member.repository.MemberRoleRepository;
 import com.coocon.admin.security.entity.CustomOAuth2User;
 import com.coocon.admin.security.entity.Provider;
@@ -32,22 +33,20 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
-    public Optional<Member> findByUserId(String userId){
-        return memberRepository.findByUserId(userId);
-    }
-
-    public Member findByUserIdNonNull(String userId){
-        return memberRepository.findByUserId(userId).orElseThrow();
-    }
-
     public Member getMemberById(Long id){
         return memberRepository.findById(id).orElseThrow();
     }
 
-
+    public Optional<Member> getMemberByEmail(String email){
+        return memberRepository.findByEmail(email);
+    }
 
     public List<MemberRole> getMemberRoleList(Long id){
         return memberRoleRepository.findByMember_Id(id);
+    }
+
+    public MemberDto.info createMemberInfoByMember(Member member){
+        return MemberDto.info.builder().name(member.getNickname()).id(member.getId()).build();
     }
 
 }

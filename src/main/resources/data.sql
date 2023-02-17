@@ -1,12 +1,53 @@
-insert into member (`user_id`,`name`, `email`,`password`,`account_non_expired`,`account_non_locked`,`credentials_non_expired`,`enabled`) values ('gildong1443', '홍길동', 'gildong@test.com','test1234',true,true,true,true);
-insert into member (`user_id`,`name`, `email`,`password`,`account_non_expired`,`account_non_locked`,`credentials_non_expired`,`enabled`) values ('user', '일반사용자', 'user@test.com','user1234!',true,true,true,true);
-insert into member (`user_id`,`name`, `email`,`password`,`account_non_expired`,`account_non_locked`,`credentials_non_expired`,`enabled`) values ('admin', '관리자', 'admmin@test.com','admin1234!',true,true,true,true);
-insert into member (`user_id`,`name`, `email`,`password`,`account_non_expired`,`account_non_locked`,`credentials_non_expired`,`enabled`) values ('api', 'API사용자', 'api@test.com','api1234!',true,true,true,true);
+-----FOR TEST ENVIRONMENT---------------
 
-insert into role (`authority`,`description`) values ('USER','일반 사용자');
-insert into role (`authority`,`description`) values ('ADMIN','관리자');
-insert into role (`authority`,`description`) values ('API','API플랫폼 사용자');
+-- PRODUCT DOMAIN -----------------
+insert into product (`code`, `name`) values ('AOA','대출금리 한도조회 중계'); --1
+insert into product (`code`, `name`) values ('IRIS','사설인증 중계'); --2
+insert into product (`code`, `name`) values ('KAKAOBIZ','카카오비즈메시지'); --3
 
-insert into member_role (`member_id`,`role_id`) values ('2','1'); --일반사용자
-insert into member_role (`member_id`,`role_id`) values ('3','2'); --관리자
-insert into member_role (`member_id`,`role_id`) values ('4','3'); --API 사용자
+insert into product_role (`product_id`, `authority`,`description`) values ('1','MANAGER','이용기관 AOA 관리자'); --1 AOA 관리자
+insert into product_role (`product_id`, `authority`,`description`) values ('1','ACCOUNT','이용기관 AOA 정산담당'); --2 AOA 정산 담당
+insert into product_role (`product_id`, `authority`,`description`) values ('1','USER','이용기관 AOA 사용자'); --3 AOA 사용자
+insert into product_role (`product_id`, `authority`,`description`) values ('2','MANAGER','일반 사용자'); --3 IRIS 관리자
+insert into product_role (`product_id`, `authority`,`description`) values ('2','USER','일반 사용자'); --4 IRIS 사용자
+
+insert into product_menu (`product_id`, `name`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','정산',0,0,'/aoa/execute','',0,'collapse'); --1 AOA/0/정산데이터
+insert into product_menu (`product_id`, `name`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','집계',1,1,'/aoa/execute/sum','',0,'item'); --2 AOA/0/정산데이터/집계
+insert into product_menu (`product_id`, `name`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','조회 ',1,1,'/aoa/execute/data','',0,'item'); --3A OA/0/정산데이터/조회
+insert into product_menu (`product_id`, `name`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','수수료등록',1,1,'/aoa/execute/fee','',0,'item'); --4 AOA/0/정산데이터/수수료관리
+
+insert into product_menu (`product_id`, `name`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','관리',0,0,'/aoa/manage','',1,'collapse'); --1 AOA/0/정산데이터
+insert into product_menu (`product_id`, `name`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','공지등록',1,5,'/aoa/manage/alert','',1,'item'); --2 AOA/0/정산데이터/집계
+insert into product_menu (`product_id`, `name`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','공지조회',1,5,'/aoa/manage/alert/list','',1,'item'); --3A OA/0/정산데이터/조회
+
+insert into menu_role (`menu_id`, `role_id`) values ('1','1'); --중/정산
+insert into menu_role (`menu_id`, `role_id`) values ('2','1'); --소/집계
+insert into menu_role (`menu_id`, `role_id`) values ('3','1'); --소/조회
+insert into menu_role (`menu_id`, `role_id`) values ('4','1'); --소/수수료등록
+
+insert into menu_role (`menu_id`, `role_id`) values ('1','2'); --중/정산
+insert into menu_role (`menu_id`, `role_id`) values ('2','2'); --소/집계
+insert into menu_role (`menu_id`, `role_id`) values ('3','2'); --소/조회
+
+insert into menu_role (`menu_id`, `role_id`) values ('5','1'); --중/정산
+insert into menu_role (`menu_id`, `role_id`) values ('6','1'); --소/집계
+insert into menu_role (`menu_id`, `role_id`) values ('7','1'); --소/조회
+
+-- COMPANY DOMAIN -----------------
+insert into company (`name`, `code`,`type`) values ( '코알라', 'koala','U');
+
+-- MEMBER DOMAIN -----------------
+insert into member (`nickname`, `email`,`password`,`account_non_locked`,`enabled`, `login_fail_count`) values ( '홍길동', 'gildong@test.com','test1234',true,true,0);
+insert into member (`nickname`, `email`,`password`,`account_non_locked`,`enabled`, `login_fail_count`,`company_id`) values ( '일반사용자', 'user@test.com','user1234!',true,true,0,1);
+insert into member (`nickname`, `email`,`password`,`account_non_locked`,`enabled`, `login_fail_count`) values ( '관리자', 'admmin@test.com','admin1234!',true,true,0);
+insert into member (`nickname`, `email`,`password`,`account_non_locked`,`enabled`, `login_fail_count`) values ('API사용자', 'api@test.com','api1234!',true,true,0);
+
+insert into member_role (`member_id`,`role_id`) values ('2','1'); --USER / AOA 관리자
+insert into member_role (`member_id`,`role_id`) values ('2','2'); --USER / AOA 정산 담당
+insert into member_role (`member_id`,`role_id`) values ('3','1'); --ADMIN / AOA 관리자
+insert into member_role (`member_id`,`role_id`) values ('3','3'); --ADMIN / IRIS 관리자
+
+insert into member_product (`member_id`,`product_id`) values ('2','1'); --USER / AOA
+insert into member_product (`member_id`,`product_id`) values ('3','1'); --ADMIN / AOA
+insert into member_product (`member_id`,`product_id`) values ('3','2'); --ADMIN / IRIS
+

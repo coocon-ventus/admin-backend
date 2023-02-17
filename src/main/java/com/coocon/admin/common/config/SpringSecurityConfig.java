@@ -46,6 +46,7 @@ public class SpringSecurityConfig {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated(); //permit한 리소스 제외 접근 시 인증 필요
 
+
         http.oauth2Login()
                 .loginPage("http://localhost:3000/login")
                 .userInfoEndpoint().userService(customOAuth2UserService)

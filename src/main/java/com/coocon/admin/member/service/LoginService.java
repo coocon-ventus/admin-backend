@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LoginService {
     private final MemberRepository memberRepository;
-    private final MemberAuthService memberTokenService;
+    private final MemberRoleService memberTokenService;
 
     public LoginDto.response login(LoginDto.reqeust loginRequestDto){
         String email = loginRequestDto.getEmail();

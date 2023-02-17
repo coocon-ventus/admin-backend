@@ -1,7 +1,6 @@
 package com.coocon.admin.company.entity;
 
-import com.coocon.admin.product.entity.ServiceCategory;
-import com.coocon.admin.security.entity.Role;
+import com.coocon.admin.product.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class CompanyServiceCategory {
+public class CompanyProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,13 +20,13 @@ public class CompanyServiceCategory {
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="serviceCategory_id", referencedColumnName = "id")
-    private ServiceCategory serviceCategory;
+    @JoinColumn(name="product_id", referencedColumnName = "id")
+    private Product product;
 
     @Builder
-    public CompanyServiceCategory(Company company, ServiceCategory serviceCategory){
+    public CompanyProduct(Company company, Product product){
         this.company = company;
-        this.serviceCategory = serviceCategory;
+        this.product = product;
     }
 
 }

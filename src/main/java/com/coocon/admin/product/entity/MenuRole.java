@@ -1,16 +1,17 @@
-package com.coocon.admin.security.entity;
+package com.coocon.admin.product.entity;
 
 
-import com.coocon.admin.company.entity.Company;
-import com.coocon.admin.product.entity.ServiceCategory;
-import com.coocon.admin.product.entity.ServiceMenu;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
+@NoArgsConstructor
 public class MenuRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +19,9 @@ public class MenuRole {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="menu_id", referencedColumnName = "id")
-    private ServiceMenu serviceMenu;
+    private ProductMenu productMenu;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="role_id", referencedColumnName = "id")
-    private Role role;
-
-    @Builder
-    public MenuRole(ServiceMenu serviceMenu, Role role){
-        this.role = role;
-        this.serviceMenu = serviceMenu;
-    }
+    private ProductRole productRole;
 }

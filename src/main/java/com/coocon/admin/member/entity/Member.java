@@ -1,21 +1,26 @@
 package com.coocon.admin.member.entity;
 
+import com.coocon.admin.company.entity.Company;
 import com.coocon.admin.security.entity.Provider;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
 @Table(name ="MEMBER")
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "company")
 @NoArgsConstructor
 public class Member implements UserDetails {
 
@@ -23,62 +28,69 @@ public class Member implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private String userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="company_id", referencedColumnName = "id")
+    private Company company;
 
     @NotNull
-    private String companyId;
-
-    private String name;
-
     private String email;
-
     private String password;
 
-    private String profileImage;
+    private LocalDateTime passwordChangedAt;
+    private String nickname;
 
-    @Column
-    @Enumerated(value = EnumType.STRING)
-    private Provider provider;
-
+    private int loginFailCount;
     //계정만료 false = 만료
-    private boolean accountNonExpired = true;
 
     private boolean accountNonLocked;
-
-    private boolean credentialsNonExpired;
-
     private boolean enabled;
 
-    /*
-    @OneToMany(mappedBy = "member_role", fetch=FetchType.LAZY)
-    private List<MemberRole> memberRoles;
-    */
-    public Member(String userId, String password, boolean enabled,
-                boolean credentialsNonExpired, boolean accountNonLocked
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime lastModifiedAt;
+
+    private LocalDateTime lastLoginAt;
+
+    public Member(String email, String password, boolean accountNonLocked
                 ) {
-        Assert.isTrue(userId != null && !"".equals(userId) && password != null,
+        Assert.isTrue(email != null && !"".equals(email) && password != null,
                 "Cannot pass null or empty values to constructor");
-        this.userId = userId;
+        this.email = email;
         this.password = password;
-        this.enabled = enabled;
-        this.credentialsNonExpired = credentialsNonExpired;
         this.accountNonLocked = accountNonLocked;
     }
 
     @Builder
-    Member(String userId, String password, String companyId, String email, String name
-            , Provider provider, String profileImage){
-        this.userId = userId;
-        this.password = password;
-        this.profileImage = profileImage;
-        this.name = name;
+    Member(String email, String password, String nickname){
         this.email = email;
-        this.provider = provider;
+        this.password = password;
+        this.nickname = nickname;
+        this.loginFailCount = 0;
         this.accountNonLocked = true;
-        this.credentialsNonExpired =true;
-        this.enabled = true;
+        this.passwordChangedAt = LocalDateTime.now();
+        this.lastLoginAt = LocalDateTime.now();
     }
+
+    @Override
+    public String getUsername() {
+        return String.valueOf(this.id);
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.accountNonLocked;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    /*
+        아래 함수들은 사용하지 않음
+     */
 
     /**
      * @deprecated use MemberService.getMemberAuthorities
@@ -88,29 +100,13 @@ public class Member implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
-
-    @Override
-    public String getUsername() {
-        return this.userId;
-    }
-
     @Override
     public boolean isAccountNonExpired() {
-        return this.accountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return this.accountNonLocked;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.credentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.enabled;
+        return true;
     }
 }

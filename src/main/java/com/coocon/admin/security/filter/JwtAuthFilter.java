@@ -1,17 +1,8 @@
 package com.coocon.admin.security.filter;
 
-import com.coocon.admin.common.error.ErrorResponse;
-import com.coocon.admin.member.service.MemberAuthService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.oauth2.sdk.ErrorObject;
-import com.nimbusds.oauth2.sdk.http.HTTPResponse;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import com.coocon.admin.member.service.MemberRoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -27,7 +18,7 @@ import java.io.IOException;
 @Slf4j
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final static String AUTH_HEADER = "Authorization";
-    private final MemberAuthService memberAuthService;
+    private final MemberRoleService memberRoleService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -35,7 +26,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         log.info("JwtTokenFilter uri = [{}]", request.getRequestURL().toString());
 
         if(token != null && !token.isEmpty()) {
-            Authentication authentication = memberAuthService.getAuthentication(token);
+            Authentication authentication = memberRoleService.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         else {
