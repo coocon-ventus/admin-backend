@@ -12,14 +12,14 @@ insert into product_role (`product_id`, `authority`,`description`) values ('2','
 insert into product_role (`product_id`, `authority`,`description`) values ('2','USER','일반 사용자'); --4 IRIS 사용자
 
 insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','서비스A',0,null,'/a/execute','',0,'group'); --1 A/서비스A
-insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','정산',1,1,'/a/execute','',0,'collapse'); --2 A/서비스A-정산
+insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`icon`,`type`) values ('1','정산',1,1,'/a/execute','',0,'IconChartBar','collapse'); --2 A/서비스A-정산
 insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','집계',2,2,'/a/execute/sum','',0,'item'); --3 A/서비스A-정산-집계
 insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','조회 ',2,2,'/a/execute/data','',3,'item'); --4 A/서비스A-정산-조회
 insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','수수료관리',2,2,'/a/execute/fee','',0,'item'); --5 A/서비스A-정산-수수료관리
-insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('1','거래내역',1,1,'/a/execute/fee','',0,'item'); --6 A/서비스A-거래내역
+insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`icon`,`type`) values ('1','거래내역',1,1,'/a/execute/fee','',0,'IconDeviceDesktopAnalytics','item'); --6 A/서비스A-거래내역
 
 insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('2','서비스B',0,null,'/b/execute','',0,'group'); --7 B/서비스B
-insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('2','관리',1,7,'/b/manage','',1,'collapse'); --8 B/서비스B-관리
+insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`icon`,`type`) values ('2','관리',1,7,'/b/manage','',1,'IconSettings','collapse'); --8 B/서비스B-관리
 insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('2','공지등록',1,7,'/b/manage/alert','',1,'item'); --9 B/서비스B-공지등록
 insert into product_menu (`product_id`, `title`,`depth_no`,`parent_menu`,`url`,`description`,`order_no`,`type`) values ('2','공지',1,7,'/b/manage/alert/list','',0,'item'); --10 B/서비스B-공지조
 

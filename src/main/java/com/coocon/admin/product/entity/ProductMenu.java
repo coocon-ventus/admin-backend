@@ -30,11 +30,11 @@ public class ProductMenu {
 
     private int orderNo;
     private String type;
-
+    private String icon;
     @Builder
     public ProductMenu(String title,
-                       Integer depth, Long parentMenu,
-                       String url, String description, int order, String type){
+                       Integer depthNo, Long parentMenu,
+                       String url, String description, int orderNo, String type){
         this.title= title;
         this.depthNo = depthNo;
         this.parentMenu = parentMenu;

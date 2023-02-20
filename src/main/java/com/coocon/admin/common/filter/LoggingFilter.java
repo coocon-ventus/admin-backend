@@ -32,9 +32,9 @@ public class LoggingFilter implements Filter {
         printParameters(req);
         printBody(true,req.getInputStream());
         chain.doFilter(request, response);
-        //ResponseWrapper res = (ResponseWrapper) response;
-       // printBody(false,res.getContentInputStream());
-        //log.info("###### HTTP RESPONSE OUTPUT status {} ######", response.getStatus());
+        ResponseWrapper res = (ResponseWrapper) response;
+        printBody(false,res.getContentInputStream());
+        log.info("###### HTTP RESPONSE OUTPUT status {} ######", res.getStatus());
     }
 
     private void printBody(boolean isInput, InputStream inputstream) throws IOException {

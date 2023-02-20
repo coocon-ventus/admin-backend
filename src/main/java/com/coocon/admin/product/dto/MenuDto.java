@@ -17,6 +17,7 @@ public class MenuDto {
         private String url;
         private String description;
         private Long parentMenu;
+        private String icon;
         private String type;
         private int order;
 
@@ -27,6 +28,7 @@ public class MenuDto {
             this.url = productMenu.getUrl();
             this.description = productMenu.getDescription();
             this.parentMenu = productMenu.getParentMenu();
+            this.icon = productMenu.getIcon();
             this.type = productMenu.getType();
             this.order = productMenu.getOrderNo();
         }
