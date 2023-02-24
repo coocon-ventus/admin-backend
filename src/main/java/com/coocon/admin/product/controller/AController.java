@@ -1,7 +1,6 @@
 package com.coocon.admin.product.controller;
 
 import com.coocon.admin.common.error.ErrorResponse;
-import com.coocon.admin.common.util.WebClientUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

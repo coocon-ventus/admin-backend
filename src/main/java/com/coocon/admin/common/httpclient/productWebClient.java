@@ -37,9 +37,11 @@ public class productWebClient {
             return sendPostWebClientApi(webClient,productApi,requestObj) ;
         }
         else if(productApi.getMethod().equals("GET")){
-            return sendGetWebClientApi(webClient,productApi,requestObj)    ;
+            return sendGetWebClientApi(webClient,productApi,requestObj)   ;
         }
-
+        else {
+            throw new UnsupportedOperationException("지원하지 않는 METHOD 입니다.");
+        }
     }
 
     public ResponseEntity<?> sendPostWebClientApi(WebClient webClient, ProductApi productApi,Object requestObj){
