@@ -18,8 +18,17 @@ public interface ProductMenuRepository extends JpaRepository<ProductMenu,Long> {
     Optional<ProductMenu> findByProduct_id(long productId);
     List<ProductMenu> findByProductIdIn(List<Long> productIds);
 
-    List<ProductMenu> findByIdInOrderByOrderNo(List<Long> Ids);
+    // using query for prevent N+1 problem
+    @Query("select t from ProductMenu t join fetch t.product where t.id in (:idList) order by t.orderNo")
+    List<ProductMenu> findByIdInOrderByOrderNo(List<Long> idList);
 
+    /**
+     * @deprecated replaced by findByIdInOrderByOrderNo
+     * Select authed menu list by cte native query
+     * @see #findByIdInOrderByOrderNo
+     * @Since 0.1.0
+     */
+    @Deprecated
     @Transactional(readOnly = true)
     @Query(value = "with recursive " +
  //           "authed_menu (id,name,depth_no,parent_menu,url,order_no,description) as\n" +

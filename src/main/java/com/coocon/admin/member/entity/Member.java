@@ -1,10 +1,8 @@
 package com.coocon.admin.member.entity;
 
 import com.coocon.admin.company.entity.Company;
-import com.coocon.admin.security.entity.Provider;
-import com.sun.istack.NotNull;
+
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 

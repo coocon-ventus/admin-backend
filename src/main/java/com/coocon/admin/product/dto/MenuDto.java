@@ -20,6 +20,7 @@ public class MenuDto {
         private String icon;
         private String type;
         private int order;
+        private Long productId;
 
         public item(ProductMenu productMenu){
             this.id = productMenu.getId();
@@ -31,6 +32,7 @@ public class MenuDto {
             this.icon = productMenu.getIcon();
             this.type = productMenu.getType();
             this.order = productMenu.getOrderNo();
+            this.productId = productMenu.getProduct().getId();
         }
     }
 

@@ -1,6 +1,7 @@
 package com.coocon.admin.company.entity;
 
 import com.coocon.admin.product.entity.Product;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

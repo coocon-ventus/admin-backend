@@ -1,6 +1,5 @@
 package com.coocon.admin.product.repository;
 
-import com.coocon.admin.product.dto.MenuDto;
 import com.coocon.admin.product.dto.SortedMenu;
 import com.coocon.admin.product.entity.ProductMenu;
 import org.junit.jupiter.api.Test;

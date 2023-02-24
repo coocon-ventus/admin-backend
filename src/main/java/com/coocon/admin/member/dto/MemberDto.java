@@ -13,11 +13,7 @@ public class MemberDto {
     public static class info{
         private Long id;
         private String name;
-        private String profileImage;
+        private String company;
         private String email;
-        private List<ProductRole> productRole;
     }
-
-
-
 }

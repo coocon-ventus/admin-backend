@@ -47,17 +47,6 @@ public class MemberRoleService {
                 .build();
         return memberRepository.saveAndFlush(member);
     }
-    public String createToken(Long id) {
-        return jwtProvider.createToken(id, getMemberAuthorities(id));
-    }
-
-    public String createTokenByRefreshToken(String refreshToken){
-
-        Claims claims = jwtProvider.parserJwtToken(refreshToken);
-        Member member =memberService.getMemberById(Long.valueOf(claims.getId()));
-
-        return createToken(member.getId());
-    }
 
     public List<GrantedAuthority> getMemberAuthorities(Long id){
         return memberService.getMemberRoleList(id).stream().map(memberRole-> new SimpleGrantedAuthority(memberRole.getProductRole().getAuthority()))

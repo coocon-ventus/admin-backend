@@ -45,8 +45,14 @@ public class MemberService {
         return memberRoleRepository.findByMember_Id(id);
     }
 
+
+
     public MemberDto.info createMemberInfoByMember(Member member){
-        return MemberDto.info.builder().name(member.getNickname()).id(member.getId()).build();
+
+        MemberDto.info memberInfo = MemberDto.info.builder().name(member.getNickname()).id(member.getId())
+                .company(member.getCompany().getName()).email(member.getEmail()).build();
+
+        return memberInfo;
     }
 
 }
