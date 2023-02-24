@@ -1,6 +1,5 @@
 package com.coocon.admin.security.entity;
 
-import com.coocon.admin.security.entity.CustomOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class CooconCustomOAuth2User extends CustomOAuth2User {

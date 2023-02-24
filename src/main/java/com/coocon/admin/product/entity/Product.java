@@ -1,12 +1,11 @@
 package com.coocon.admin.product.entity;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table
 @Getter
 @Setter
 @ToString
@@ -22,9 +21,12 @@ public class Product {
     @NotNull
     private String name;
 
+    private String baseUrl;
+
     @Builder
     Product(String name, String code){
         this.name = name;
         this.code = code;
     }
+
 }

@@ -1,12 +1,15 @@
 package com.coocon.admin.product.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import lombok.Getter;
 
 @Entity
 @Getter
-public class ProductRole {
+@Setter
+public class ProductApi {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,6 +18,10 @@ public class ProductRole {
     @JoinColumn(name="product_id", referencedColumnName = "id")
     private Product product;
 
-    private String authority;
-    private String description;
+    private String apiName;
+    private String url;
+    private String method;
+
+    private String contentType;
+
 }
