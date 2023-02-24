@@ -75,8 +75,8 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
         }
 
         @Override
-        public void setWriteListener(WriteListener writeListener) {
-            throw new UnsupportedOperationException("not support");
+        public void setWriteListener(WriteListener listener) {
+
         }
     }
 }

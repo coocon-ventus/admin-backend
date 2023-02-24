@@ -2,9 +2,8 @@ package com.coocon.admin.security.entity;
 
 
 import com.coocon.admin.member.entity.Member;
-import lombok.*;
-
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name ="REFRESH_TOKEN")

@@ -1,24 +1,18 @@
 package com.coocon.admin.common.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.result.Output;
 import org.slf4j.MDC;
-import org.springframework.core.annotation.Order;
 import org.springframework.util.StreamUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
+
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @WebFilter
 @Slf4j
-
 public class LoggingFilter implements Filter {
 
     @Override

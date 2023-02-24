@@ -2,6 +2,7 @@ package com.coocon.admin.security.handler;
 
 import com.coocon.admin.security.util.JwtProvider;
 import com.coocon.admin.security.entity.CustomOAuth2User;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -24,7 +25,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                                Authentication authentication) throws IOException, ServletException {
+                                        Authentication authentication) throws IOException, ServletException {
         CustomOAuth2User oAuth2User = (CustomOAuth2User)authentication.getPrincipal();
 
         String accessToken = jwtProvider.createTokenByOAuth2User(oAuth2User);
